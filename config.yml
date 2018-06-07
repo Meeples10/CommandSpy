@@ -1,0 +1,15 @@
+# Chat prefix, shown in front of plugin messages and notifications
+chatprefix: '&a[&eCL&a] '
+
+# Chat format must contain the following placeholders:
+# {Player}  the player executing the command
+# {Command} the command itself
+#
+# Players that have the 'commandlog.notice' permission can see these messages
+chatformat: '&fPlayer {Player} &fused command: &e{Command}'
+
+# Enable/disable logging to file
+filelog: true
+
+# Enable/disable toggling command logging on or off
+allowdisable: false
