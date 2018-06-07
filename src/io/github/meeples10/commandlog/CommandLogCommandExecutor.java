@@ -28,21 +28,13 @@ public class CommandLogCommandExecutor implements CommandExecutor {
             
             if((args[0].equalsIgnoreCase("reload")) || (args[0].equalsIgnoreCase("rl"))) {
                 return reloadCommand(sender, cmd, label, args);
-            }
-
-            if((args[0].equalsIgnoreCase("disable")) || (args[0].equalsIgnoreCase("d"))) {
+            } else if((args[0].equalsIgnoreCase("disable")) || (args[0].equalsIgnoreCase("d"))) {
                 return disableCommand(sender, cmd, label, args);
-            }
-
-            if((args[0].equalsIgnoreCase("enable")) || (args[0].equalsIgnoreCase("e"))) {
+            } else if((args[0].equalsIgnoreCase("enable")) || (args[0].equalsIgnoreCase("e"))) {
                 return enableCommand(sender, cmd, label, args);
-            }
-
-            if((args[0].equalsIgnoreCase("history")) || (args[0].equalsIgnoreCase("h"))) {
+            } else if((args[0].equalsIgnoreCase("history")) || (args[0].equalsIgnoreCase("h"))) {
                 return historyCommand(sender, cmd, label, args);
-            }
-
-            if((args[0].equalsIgnoreCase("help")) || (args[0].equalsIgnoreCase("?"))) {
+            } else if((args[0].equalsIgnoreCase("help")) || (args[0].equalsIgnoreCase("?"))) {
                 return helpCommand(sender, cmd, label, args);
             }
         }
