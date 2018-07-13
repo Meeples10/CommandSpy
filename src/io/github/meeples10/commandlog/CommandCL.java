@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class CommandLogCommandExecutor implements CommandExecutor {
+public class CommandCL implements CommandExecutor {
 
-    public CommandLogCommandExecutor() {
+    public CommandCL() {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
