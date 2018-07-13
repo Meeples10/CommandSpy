@@ -13,9 +13,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class CommandCL implements CommandExecutor {
 
-    public CommandCL() {
-    }
-
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("commandlog")) {
             if(args.length == 0) {
@@ -25,7 +23,7 @@ public class CommandCL implements CommandExecutor {
                 sender.sendMessage("§fType §a/cl help §ffor more information");
                 return true;
             }
-            
+
             if((args[0].equalsIgnoreCase("reload")) || (args[0].equalsIgnoreCase("rl"))) {
                 return reloadCommand(sender, cmd, label, args);
             } else if((args[0].equalsIgnoreCase("disable")) || (args[0].equalsIgnoreCase("d"))) {
