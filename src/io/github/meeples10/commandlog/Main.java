@@ -40,7 +40,7 @@ public final class Main extends JavaPlugin implements Listener {
         log = Bukkit.getServer().getPluginManager().getPlugin(NAME).getLogger();
         getServer().getPluginManager().registerEvents(this, this);
         loadConfig();
-        getCommand("commandlog").setExecutor(new CommandLogCommandExecutor());
+        getCommand("commandlog").setExecutor(new CommandCL());
         commandHistory = new ArrayList<HistoryItem>();
     }
 
