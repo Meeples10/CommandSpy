@@ -47,7 +47,6 @@ public class CommandCL implements CommandExecutor {
             if(player.hasPermission("commandlog.admin")) {
                 Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
                 Main.loadConfig();
-                Main.log.info("[" + Main.NAME + "] Config reloaded");
                 sender.sendMessage("§a[§eCL§a] §fConfig reloaded");
             } else {
                 sender.sendMessage(ChatColor.RED + "Insufficient permissions");
@@ -55,7 +54,7 @@ public class CommandCL implements CommandExecutor {
         } else {
             Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
             Main.loadConfig();
-            Main.log.info("[" + Main.NAME + "] Config reloaded");
+            Bukkit.getPluginManager().getPlugin(Main.NAME).getLogger().info("Config reloaded");
         }
         return true;
     }
@@ -190,8 +189,8 @@ public class CommandCL implements CommandExecutor {
                     + ChatColor.GOLD + " commands:");
             for(int iHistory = numHistory - 1; iHistory >= 0; iHistory--) {
                 HistoryItem hi = (HistoryItem) Main.getCommandHistory().get(iHistory);
-                sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender() + " executed "
-                        + hi.getCommand());
+                sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender()
+                        + " executed " + hi.getCommand());
             }
         }
         return true;
