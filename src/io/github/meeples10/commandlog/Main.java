@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -64,8 +63,7 @@ public final class Main extends JavaPlugin implements Listener {
             log.warning("chatformat string must at least contain {Player} and {Command}");
             log.warning("Using default chatformat string now");
 
-            MemoryConfiguration memconfig = (MemoryConfiguration) config.getDefaults();
-            chatFormat = memconfig.getString("chatformat");
+            chatFormat = config.getDefaults().getString("chatformat");
         }
 
         enableFileLog = config.getBoolean("filelog");
@@ -85,7 +83,7 @@ public final class Main extends JavaPlugin implements Listener {
         if(parts.length == 0) {
             return;
         }
-        
+
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p.hasPermission("commandlog.notice")) {
                 LogCommandToOnlinePlayer(event, p);
@@ -116,7 +114,7 @@ public final class Main extends JavaPlugin implements Listener {
             dataFolder.mkdir();
         }
 
-        String fileName = "commandlog_" + FormatDateTime("yMMdd", new Date()) + ".txt";
+        String fileName = "commandlog_" + formatDate("yMMdd", new Date()) + ".txt";
         File saveTo = new File(getDataFolder(), fileName);
         if(!saveTo.exists()) {
             try {
@@ -130,7 +128,7 @@ public final class Main extends JavaPlugin implements Listener {
             FileWriter fw = new FileWriter(saveTo, true);
             PrintWriter pw = new PrintWriter(fw);
 
-            pw.println("[" + FormatDateTime("yyyy/MM/dd HH:mm:ss", hi.getDate()) + "] " + hi.getSender() + " executed "
+            pw.println("[" + formatDate("yyyy/MM/dd HH:mm:ss", hi.getDate()) + "] " + hi.getSender() + " executed "
                     + hi.getCommand() + " at " + hi.getLocation());
             pw.flush();
             pw.close();
@@ -139,9 +137,8 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    public String FormatDateTime(String format, Date ts) {
-        SimpleDateFormat sformat = new SimpleDateFormat(format);
-        return sformat.format(ts);
+    public static String formatDate(String format, Date ts) {
+        return new SimpleDateFormat(format).format(ts);
     }
 
     public static boolean allowDisable() {

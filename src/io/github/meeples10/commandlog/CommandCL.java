@@ -1,7 +1,5 @@
 package io.github.meeples10.commandlog;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -167,7 +165,7 @@ public class CommandCL implements CommandExecutor {
                         + numHistory + ChatColor.GOLD + " commands:");
                 for(int iHistory = numHistory - 1; iHistory >= 0; iHistory--) {
                     HistoryItem hi = (HistoryItem) Main.getCommandHistory().get(iHistory);
-                    sender.sendMessage("[" + formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender()
+                    sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender()
                             + " executed " + hi.getCommand());
                 }
             } else {
@@ -192,7 +190,7 @@ public class CommandCL implements CommandExecutor {
                     + ChatColor.GOLD + " commands:");
             for(int iHistory = numHistory - 1; iHistory >= 0; iHistory--) {
                 HistoryItem hi = (HistoryItem) Main.getCommandHistory().get(iHistory);
-                sender.sendMessage("[" + formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender() + " executed "
+                sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender() + " executed "
                         + hi.getCommand());
             }
         }
@@ -223,9 +221,5 @@ public class CommandCL implements CommandExecutor {
             sender.sendMessage("§c/cl enable | e §f: Enables command notifications for everyone");
         }
         return true;
-    }
-
-    private static String formatDate(String format, Date ts) {
-        return new SimpleDateFormat(format).format(ts);
     }
 }
