@@ -24,23 +24,23 @@ public class CommandCL implements CommandExecutor {
                 return true;
             }
 
-            if((args[0].equalsIgnoreCase("reload")) || (args[0].equalsIgnoreCase("rl"))) {
-                return reloadCommand(sender, cmd, label, args);
-            } else if((args[0].equalsIgnoreCase("disable")) || (args[0].equalsIgnoreCase("d"))) {
-                return disableCommand(sender, cmd, label, args);
-            } else if((args[0].equalsIgnoreCase("enable")) || (args[0].equalsIgnoreCase("e"))) {
-                return enableCommand(sender, cmd, label, args);
-            } else if((args[0].equalsIgnoreCase("history")) || (args[0].equalsIgnoreCase("h"))) {
-                return historyCommand(sender, cmd, label, args);
-            } else if((args[0].equalsIgnoreCase("help")) || (args[0].equalsIgnoreCase("?"))) {
-                return helpCommand(sender, cmd, label, args);
+            if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
+                return reloadCommand(sender, args);
+            } else if(args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("d")) {
+                return disableCommand(sender, args);
+            } else if(args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("e")) {
+                return enableCommand(sender, args);
+            } else if(args[0].equalsIgnoreCase("history") || args[0].equalsIgnoreCase("h")) {
+                return historyCommand(sender, args);
+            } else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+                return helpCommand(sender, args);
             }
         }
 
         return false;
     }
 
-    private boolean reloadCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    private boolean reloadCommand(CommandSender sender, String[] args) {
         if((sender instanceof Player)) {
             Player player = (Player) sender;
 
@@ -59,7 +59,7 @@ public class CommandCL implements CommandExecutor {
         return true;
     }
 
-    private boolean disableCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    private boolean disableCommand(CommandSender sender, String[] args) {
         Player p;
         if(Main.allowDisable()) {
             if((sender instanceof Player)) {
@@ -101,7 +101,7 @@ public class CommandCL implements CommandExecutor {
         return true;
     }
 
-    private boolean enableCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    private boolean enableCommand(CommandSender sender, String[] args) {
         Player p;
         if(Main.allowDisable()) {
             if((sender instanceof Player)) {
@@ -141,7 +141,7 @@ public class CommandCL implements CommandExecutor {
         return true;
     }
 
-    private boolean historyCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    private boolean historyCommand(CommandSender sender, String[] args) {
         if((sender instanceof Player)) {
             Player player = (Player) sender;
 
@@ -196,7 +196,7 @@ public class CommandCL implements CommandExecutor {
         return true;
     }
 
-    private boolean helpCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    private boolean helpCommand(CommandSender sender, String[] args) {
         if((sender instanceof Player)) {
             Player player = (Player) sender;
 
