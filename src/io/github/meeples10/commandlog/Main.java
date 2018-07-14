@@ -31,7 +31,7 @@ public final class Main extends JavaPlugin implements Listener {
     private static List<HistoryItem> commandHistory;
     private static boolean allowDisable;
     private static File df, cfg;
-    public static Logger log;
+    private static Logger log;
 
     public void onEnable() {
         df = Bukkit.getServer().getPluginManager().getPlugin(NAME).getDataFolder();
@@ -75,18 +75,13 @@ public final class Main extends JavaPlugin implements Listener {
             return;
         }
         String s = event.getMessage();
-        if(s.length() == 0) {
-            return;
-        }
-
-        String[] parts = s.split(" ");
-        if(parts.length == 0) {
+        if(s.length() == 0 || s.split(" ").length == 0) {
             return;
         }
 
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p.hasPermission("commandlog.notice")) {
-                LogCommandToOnlinePlayer(event, p);
+                logCommandToOnlinePlayer(event, p);
             }
         }
 
@@ -95,11 +90,11 @@ public final class Main extends JavaPlugin implements Listener {
         commandHistory.add(hi);
 
         if(enableFileLog) {
-            LogCommandToFile(hi);
+            logCommandToFile(hi);
         }
     }
 
-    private void LogCommandToOnlinePlayer(PlayerCommandPreprocessEvent event, Player p) {
+    private void logCommandToOnlinePlayer(PlayerCommandPreprocessEvent event, Player p) {
         Player player = event.getPlayer();
         String s = event.getMessage();
 
@@ -108,7 +103,7 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    private void LogCommandToFile(HistoryItem hi) {
+    private void logCommandToFile(HistoryItem hi) {
         File dataFolder = getDataFolder();
         if(!dataFolder.exists()) {
             dataFolder.mkdir();
