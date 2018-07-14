@@ -34,6 +34,8 @@ public class CommandCL implements CommandExecutor {
                 return historyCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
                 return helpCommand(sender, args);
+            } else if(args[0].equalsIgnoreCase("hide")) {
+                return hideCommand(sender, args);
             }
         }
 
@@ -41,7 +43,7 @@ public class CommandCL implements CommandExecutor {
     }
 
     private boolean reloadCommand(CommandSender sender, String[] args) {
-        if((sender instanceof Player)) {
+        if(sender instanceof Player) {
             Player player = (Player) sender;
 
             if(player.hasPermission("commandlog.admin")) {
@@ -62,7 +64,7 @@ public class CommandCL implements CommandExecutor {
     private boolean disableCommand(CommandSender sender, String[] args) {
         Player p;
         if(Main.allowDisable()) {
-            if((sender instanceof Player)) {
+            if(sender instanceof Player) {
                 Player player = (Player) sender;
 
                 if(player.hasPermission("commandlog.admin")) {
@@ -104,7 +106,7 @@ public class CommandCL implements CommandExecutor {
     private boolean enableCommand(CommandSender sender, String[] args) {
         Player p;
         if(Main.allowDisable()) {
-            if((sender instanceof Player)) {
+            if(sender instanceof Player) {
                 Player player = (Player) sender;
 
                 if(player.hasPermission("commandlog.admin")) {
@@ -142,7 +144,7 @@ public class CommandCL implements CommandExecutor {
     }
 
     private boolean historyCommand(CommandSender sender, String[] args) {
-        if((sender instanceof Player)) {
+        if(sender instanceof Player) {
             Player player = (Player) sender;
 
             if(player.hasPermission("commandlog.history")) {
@@ -197,7 +199,7 @@ public class CommandCL implements CommandExecutor {
     }
 
     private boolean helpCommand(CommandSender sender, String[] args) {
-        if((sender instanceof Player)) {
+        if(sender instanceof Player) {
             Player player = (Player) sender;
 
             if(player.hasPermission("commandlog.notice")) {
@@ -218,6 +220,18 @@ public class CommandCL implements CommandExecutor {
             sender.sendMessage("§c/cl reload | rl §f: Reload the configuration");
             sender.sendMessage("§c/cl disable | d §f: Disables command notifications for everyone");
             sender.sendMessage("§c/cl enable | e §f: Enables command notifications for everyone");
+        }
+        return true;
+    }
+
+    private boolean hideCommand(CommandSender sender, String[] args) {
+        if(sender.hasPermission("commandlog.notice")) {
+            if(sender instanceof Player) {
+                sender.sendMessage(Main.getChatPrefix() + " You will "
+                        + (Main.toggleHidden((Player) sender) ? "no longer" : "now") + "receive command notifications");
+            } else {
+                sender.sendMessage("This command can only be used by players.");
+            }
         }
         return true;
     }

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -17,6 +18,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
@@ -30,12 +33,14 @@ public final class Main extends JavaPlugin implements Listener {
     private static boolean enableFileLog = true;
     private static List<HistoryItem> commandHistory;
     private static boolean allowDisable;
-    private static File df, cfg;
+    private static File df, cfg, data;
     private static Logger log;
+    private static HashMap<Player, Boolean> hidden = new HashMap<Player, Boolean>();
 
     public void onEnable() {
         df = Bukkit.getServer().getPluginManager().getPlugin(NAME).getDataFolder();
         cfg = new File(df, "config.yml");
+        data = new File(df, "data");
         log = Bukkit.getServer().getPluginManager().getPlugin(NAME).getLogger();
         getServer().getPluginManager().registerEvents(this, this);
         loadConfig();
@@ -70,22 +75,42 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        File f = new File(data, e.getPlayer().getUniqueId().toString() + ".yml");
+        FileConfiguration c = YamlConfiguration.loadConfiguration(f);
+        if(!f.exists()) {
+            c.set("hide", false);
+            try {
+                c.save(f);
+            } catch(IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        hidden.put(e.getPlayer(), c.getBoolean("hide"));
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        hidden.remove(e.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
         if(!enableNotifications) {
             return;
         }
-        String s = event.getMessage();
+        String s = e.getMessage();
         if(s.length() == 0 || s.split(" ").length == 0) {
             return;
         }
 
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p.hasPermission("commandlog.notice")) {
-                logCommandToOnlinePlayer(event, p);
+                logCommandToOnlinePlayer(e.getMessage(), p, e.getPlayer());
             }
         }
 
-        Player player = event.getPlayer();
+        Player player = e.getPlayer();
         HistoryItem hi = new HistoryItem(s, player.getDisplayName(), new Date(), player.getLocation());
         commandHistory.add(hi);
 
@@ -94,12 +119,12 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    private void logCommandToOnlinePlayer(PlayerCommandPreprocessEvent event, Player p) {
-        Player player = event.getPlayer();
-        String s = event.getMessage();
-
-        if(p != player) {
-            p.sendMessage(chatPrefix + chatFormat.replace("{Player}", player.getDisplayName()).replace("{Command}", s));
+    private void logCommandToOnlinePlayer(String s, Player p, Player sender) {
+        if(p != sender) {
+            if(!hidden.get(p)) {
+                p.sendMessage(
+                        chatPrefix + chatFormat.replace("{Player}", sender.getDisplayName()).replace("{Command}", s));
+            }
         }
     }
 
@@ -162,5 +187,18 @@ public final class Main extends JavaPlugin implements Listener {
 
     public static List<HistoryItem> getCommandHistory() {
         return commandHistory;
+    }
+
+    public static boolean toggleHidden(Player p) {
+        hidden.put(p, !hidden.get(p));
+        File f = new File(data, p.getUniqueId().toString() + ".yml");
+        FileConfiguration c = YamlConfiguration.loadConfiguration(f);
+        c.set("hide", hidden.get(p));
+        try {
+            c.save(f);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return hidden.get(p);
     }
 }
