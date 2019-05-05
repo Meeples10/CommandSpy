@@ -78,10 +78,6 @@ public final class Main extends JavaPlugin implements Listener {
         return allowDisable;
     }
 
-    public static String getChatFormat() {
-        return chatFormat;
-    }
-
     public static String getChatPrefix() {
         return chatPrefix;
     }
