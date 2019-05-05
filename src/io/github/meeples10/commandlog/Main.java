@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -149,12 +150,16 @@ public final class Main extends JavaPlugin implements Listener {
             PrintWriter pw = new PrintWriter(fw);
 
             pw.println("[" + formatDate("yyyy/MM/dd HH:mm:ss", hi.getDate()) + "] " + hi.getSender() + " executed "
-                    + hi.getCommand() + " at " + hi.getLocation());
+                    + hi.getCommand() + " at " + getLocationString(hi.getLocation()));
             pw.flush();
             pw.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getLocationString(Location l) {
+        return "(" + l.getX() + "," + l.getY() + "," + l.getZ() + ") in world " + l.getWorld().getName();
     }
 
     public static String formatDate(String format, Date ts) {
