@@ -43,8 +43,8 @@ public class CommandCL extends MeepCommand {
 
     private boolean reloadCommand(CommandSender sender) {
         if(sender.hasPermission("commandlog.reload")) {
-            sender.sendMessage(Messages.reloadAttempt(Main.getChatPrefix().trim()));
-            sender.sendMessage(Messages.reloadMessage(Main.getChatPrefix().trim(), Main.loadConfig()));
+            sender.sendMessage(Messages.reloadAttempt(Main.NAME));
+            sender.sendMessage(Messages.reloadMessage(Main.NAME, Main.loadConfig()));
         } else {
             sender.sendMessage(Messages.noPermissionMessage());
         }
