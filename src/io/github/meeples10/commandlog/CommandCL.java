@@ -20,16 +20,16 @@ public class CommandCL extends MeepCommand {
         if(args.length > 0) {
             switch(args[0].toLowerCase()) {
             case "reload":
-                return reloadCommand(sender, args);
+                return reloadCommand(sender);
             case "enable":
             case "e":
-                return enableCommand(sender, args);
+                return enableCommand(sender);
             case "disable":
             case "d":
-                return disableCommand(sender, args);
+                return disableCommand(sender);
             case "help":
             case "?":
-                return helpCommand(sender, args);
+                return helpCommand(sender);
             default:
                 return false;
             }
@@ -41,7 +41,7 @@ public class CommandCL extends MeepCommand {
         }
     }
 
-    private boolean reloadCommand(CommandSender sender, String[] args) {
+    private boolean reloadCommand(CommandSender sender) {
         if(sender.hasPermission("commandlog.reload")) {
             sender.sendMessage(Messages.reloadAttempt(Main.getChatFormat().trim()));
             sender.sendMessage(Messages.reloadMessage(Main.getChatFormat().trim(), Main.loadConfig()));
@@ -51,7 +51,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean disableCommand(CommandSender sender, String[] args) {
+    private boolean disableCommand(CommandSender sender) {
         if(Main.allowDisable()) {
             Main.setNotifications(false);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -67,7 +67,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean enableCommand(CommandSender sender, String[] args) {
+    private boolean enableCommand(CommandSender sender) {
         if(Main.allowDisable()) {
             Main.setNotifications(true);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -83,7 +83,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean helpCommand(CommandSender sender, String[] args) {
+    private boolean helpCommand(CommandSender sender) {
         sender.sendMessage(Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME
                 + " Help $t" + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload$t: Reload the plugin$hl\n"
                 + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
