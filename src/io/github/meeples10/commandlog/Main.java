@@ -112,10 +112,6 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    private static String getLocationString(Location l) {
-        return "(" + l.getX() + "," + l.getY() + "," + l.getZ() + ") in world " + l.getWorld().getName();
-    }
-
     public static String formatDate(String format, Date ts) {
         return new SimpleDateFormat(format).format(ts);
     }
