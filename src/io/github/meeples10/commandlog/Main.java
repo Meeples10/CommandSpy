@@ -16,9 +16,9 @@ import net.md_5.bungee.api.ChatColor;
 public final class Main extends JavaPlugin implements Listener {
     public static final String NAME = "CommandLog";
 
-    private static String chatFormat = "";
-    private static String chatPrefix = "";
-    private static boolean enableNotifications = true;
+    private static String chatFormat;
+    private static String chatPrefix;
+    private static boolean enableNotifications;
     private static boolean allowDisable;
     private static File df, cfg;
 
