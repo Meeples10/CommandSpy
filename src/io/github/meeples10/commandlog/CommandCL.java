@@ -1,8 +1,5 @@
 package io.github.meeples10.commandlog;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -51,39 +48,14 @@ public class CommandCL extends MeepCommand {
     }
 
     private boolean disableCommand(CommandSender sender, String[] args) {
-        Player p;
         if(Main.allowDisable()) {
-            if(sender instanceof Player) {
-                Player player = (Player) sender;
-
-                if(player.hasPermission("commandlog.admin")) {
-                    Main.setNotifications(false);
-
-                    List<Player> playerList = (List<Player>) Bukkit.getServer().getOnlinePlayers();
-                    if(playerList != null) {
-                        for(Iterator<Player> localIterator = playerList.iterator(); localIterator.hasNext();) {
-                            p = (Player) localIterator.next();
-                            if(p.hasPermission("commandlog.notice")) {
-                                p.sendMessage(Main.getChatPrefix() + player.getDisplayName() + ChatColor.RESET
-                                        + " has disabled notifications.");
-                            }
-                        }
-                    }
-                } else {
-                    sender.sendMessage(Messages.noPermissionMessage());
+            Main.setNotifications(false);
+            for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if(p.hasPermission("commandlog.notice")) {
+                    p.sendMessage(Main.getChatPrefix()
+                            + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName())
+                            + ChatColor.RESET + " has disabled notifications.");
                 }
-            } else {
-                Main.setNotifications(false);
-
-                List<Player> playerList = (List<Player>) Bukkit.getServer().getOnlinePlayers();
-                if(playerList != null) {
-                    for(Player p1 : playerList) {
-                        if(p1.hasPermission("commandlog.notice")) {
-                            p1.sendMessage(Main.getChatPrefix() + "Console has disabled notifications.");
-                        }
-                    }
-                }
-                sender.sendMessage(Main.getChatPrefix() + "Notifications are now disabled.");
             }
         } else {
             sender.sendMessage(Main.getChatPrefix() + "Notifications cannot be disabled.");
@@ -92,40 +64,17 @@ public class CommandCL extends MeepCommand {
     }
 
     private boolean enableCommand(CommandSender sender, String[] args) {
-        Player p;
         if(Main.allowDisable()) {
-            if(sender instanceof Player) {
-                Player player = (Player) sender;
-
-                if(player.hasPermission("commandlog.admin")) {
-                    Main.setNotifications(true);
-
-                    List<Player> playerList = (List<Player>) Bukkit.getServer().getOnlinePlayers();
-                    if(playerList != null) {
-                        for(Iterator<Player> localIterator = playerList.iterator(); localIterator.hasNext();) {
-                            p = (Player) localIterator.next();
-                            if(p.hasPermission("commandlog.notice")) {
-                                p.sendMessage(Main.getChatPrefix() + player.getDisplayName() + ChatColor.RESET
-                                        + " has enabled notifications.");
-                            }
-                        }
-                    }
-                } else {
-                    sender.sendMessage(Messages.noPermissionMessage());
+            Main.setNotifications(true);
+            for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if(p.hasPermission("commandlog.notice")) {
+                    p.sendMessage(Main.getChatPrefix()
+                            + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName())
+                            + ChatColor.RESET + " has enabled notifications.");
                 }
-            } else {
-                Main.setNotifications(true);
-
-                List<Player> playerList = (List<Player>) Bukkit.getServer().getOnlinePlayers();
-                if(playerList != null) {
-                    for(Player p2 : playerList) {
-                        if(p2.hasPermission("commandlog.notice")) {
-                            p2.sendMessage(Main.getChatPrefix() + "Console has enabled notifications.");
-                        }
-                    }
-                }
-                sender.sendMessage(Main.getChatPrefix() + "Notifications are now disabled.");
             }
+        } else {
+            sender.sendMessage(Main.getChatPrefix() + "Notifications are already enabled.");
         }
         return true;
     }
