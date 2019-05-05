@@ -142,28 +142,11 @@ public class CommandCL extends MeepCommand {
     }
 
     private boolean helpCommand(CommandSender sender, String[] args) {
-        if(sender instanceof Player) {
-            Player player = (Player) sender;
-
-            if(player.hasPermission("commandlog.notice")) {
-                sender.sendMessage(ChatColor.GOLD + "CommandLog commands:");
-                sender.sendMessage("§c/cl history [x]| hi [x] §f: Shows the last <x> commands executed, default = 10");
-            }
-
-            if(player.hasPermission("commandlog.admin")) {
-                sender.sendMessage("§6CommandLog Admin commands:");
-                sender.sendMessage("§c/cl reload | rl §f: Reload the configuration");
-                sender.sendMessage("§c/cl disable | d §f: Disables command notifications for everyone");
-                sender.sendMessage("§c/cl enable | e §f: Enables command notifications for everyone");
-            }
-        } else {
-            sender.sendMessage("§6CommandLog commands:");
-            sender.sendMessage("§c/cl history <x>| h <x> §f: Shows the last <x> commands executed, default = 10");
-            sender.sendMessage("§6CommandLog Admin commands:");
-            sender.sendMessage("§c/cl reload | rl §f: Reload the configuration");
-            sender.sendMessage("§c/cl disable | d §f: Disables command notifications for everyone");
-            sender.sendMessage("§c/cl enable | e §f: Enables command notifications for everyone");
-        }
+        sender.sendMessage(
+                Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME + " Help $t"
+                        + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload | rl$t: Reload the plugin$hl\n"
+                        + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
+                        + "/cl enable | e$t: Enable command notifications for everyone"));
         return true;
     }
 
