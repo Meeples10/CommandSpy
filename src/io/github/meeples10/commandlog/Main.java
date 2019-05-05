@@ -38,7 +38,7 @@ public final class Main extends JavaPlugin implements Listener {
         log = Bukkit.getServer().getPluginManager().getPlugin(NAME).getLogger();
         getServer().getPluginManager().registerEvents(this, this);
         loadConfig();
-        getCommand("commandlog").setExecutor(new CommandCL());
+        getCommand("commandlog").setExecutor(new CommandCL("/cl help"));
     }
 
     public static void loadConfig() {

@@ -5,25 +5,22 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.meeples10.meepcore.MeepCommand;
+import io.github.meeples10.meepcore.Messages;
 import net.md_5.bungee.api.ChatColor;
 
-public class CommandCL implements CommandExecutor {
+public class CommandCL extends MeepCommand {
+
+    public CommandCL(String usage) {
+        super(usage);
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("commandlog")) {
-            if(args.length == 0) {
-                sender.sendMessage("§aCommandLog §fversion §a"
-                        + Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).getDescription().getVersion());
-                sender.sendMessage("§fBy §aMeeples10");
-                sender.sendMessage("§fType §a/cl help §ffor more information");
-                return true;
-            }
-
+    public boolean run(CommandSender sender, Command cmd, String label, String[] args) {
+        if(args.length > 0) {
             if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
                 return reloadCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("d")) {
@@ -34,10 +31,15 @@ public class CommandCL implements CommandExecutor {
                 return helpCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("hide")) {
                 return hideCommand(sender, args);
+            } else {
+                return false;
             }
+        } else {
+            sender.sendMessage(Messages.format("$hlCommandLog $tversion $hl"
+                    + Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).getDescription().getVersion()
+                    + "\n$tAuthor: $hlMeeples10\n$tUse $hl/cl help $tfor more information."));
+            return true;
         }
-
-        return false;
     }
 
     private boolean reloadCommand(CommandSender sender, String[] args) {
@@ -47,9 +49,9 @@ public class CommandCL implements CommandExecutor {
             if(player.hasPermission("commandlog.admin")) {
                 Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
                 Main.loadConfig();
-                sender.sendMessage("§a[§eCL§a] §fConfig reloaded");
+                sender.sendMessage(Main.getChatPrefix() + "Config reloaded");
             } else {
-                sender.sendMessage(ChatColor.RED + "Insufficient permissions");
+                sender.sendMessage(Messages.noPermissionMessage());
             }
         } else {
             Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
@@ -73,13 +75,13 @@ public class CommandCL implements CommandExecutor {
                         for(Iterator<Player> localIterator = playerList.iterator(); localIterator.hasNext();) {
                             p = (Player) localIterator.next();
                             if(p.hasPermission("commandlog.notice")) {
-                                p.sendMessage(Main.getChatPrefix() + ChatColor.RESET + player.getDisplayName()
-                                        + ChatColor.RESET + " has disabled notifications");
+                                p.sendMessage(Main.getChatPrefix() + player.getDisplayName() + ChatColor.RESET
+                                        + " has disabled notifications.");
                             }
                         }
                     }
                 } else {
-                    sender.sendMessage(ChatColor.RED + "Insufficient permissions");
+                    sender.sendMessage(Messages.noPermissionMessage());
                 }
             } else {
                 Main.setNotifications(false);
@@ -88,15 +90,14 @@ public class CommandCL implements CommandExecutor {
                 if(playerList != null) {
                     for(Player p1 : playerList) {
                         if(p1.hasPermission("commandlog.notice")) {
-                            p1.sendMessage(
-                                    Main.getChatPrefix() + ChatColor.RESET + " Console has disabled notifications");
+                            p1.sendMessage(Main.getChatPrefix() + "Console has disabled notifications.");
                         }
                     }
                 }
-                sender.sendMessage(Main.getChatPrefix() + ChatColor.RESET + " Notifications are now disabled");
+                sender.sendMessage(Main.getChatPrefix() + "Notifications are now disabled.");
             }
         } else {
-            sender.sendMessage(Main.getChatPrefix() + ChatColor.RESET + " Notifications cannot be disabled");
+            sender.sendMessage(Main.getChatPrefix() + "Notifications cannot be disabled.");
         }
         return true;
     }
@@ -115,13 +116,13 @@ public class CommandCL implements CommandExecutor {
                         for(Iterator<Player> localIterator = playerList.iterator(); localIterator.hasNext();) {
                             p = (Player) localIterator.next();
                             if(p.hasPermission("commandlog.notice")) {
-                                p.sendMessage(Main.getChatPrefix() + ChatColor.RESET + player.getDisplayName()
-                                        + ChatColor.RESET + " has enabled notifications");
+                                p.sendMessage(Main.getChatPrefix() + player.getDisplayName() + ChatColor.RESET
+                                        + " has enabled notifications.");
                             }
                         }
                     }
                 } else {
-                    sender.sendMessage(ChatColor.RED + "Insufficient permissions");
+                    sender.sendMessage(Messages.noPermissionMessage());
                 }
             } else {
                 Main.setNotifications(true);
@@ -130,12 +131,11 @@ public class CommandCL implements CommandExecutor {
                 if(playerList != null) {
                     for(Player p2 : playerList) {
                         if(p2.hasPermission("commandlog.notice")) {
-                            p2.sendMessage(
-                                    Main.getChatPrefix() + ChatColor.RESET + " Console has enabled notifications");
+                            p2.sendMessage(Main.getChatPrefix() + "Console has enabled notifications.");
                         }
                     }
                 }
-                sender.sendMessage(Main.getChatPrefix() + ChatColor.RESET + " Notifications are now disabled");
+                sender.sendMessage(Main.getChatPrefix() + "Notifications are now disabled.");
             }
         }
         return true;
@@ -170,10 +170,11 @@ public class CommandCL implements CommandExecutor {
     private boolean hideCommand(CommandSender sender, String[] args) {
         if(sender.hasPermission("commandlog.notice")) {
             if(sender instanceof Player) {
-                sender.sendMessage(Main.getChatPrefix() + " You will "
-                        + (Main.toggleHidden((Player) sender) ? "no longer" : "now") + " receive command notifications");
+                sender.sendMessage(
+                        Main.getChatPrefix() + "You will " + (Main.toggleHidden((Player) sender) ? "no longer" : "now")
+                                + " receive command notifications.");
             } else {
-                sender.sendMessage("This command can only be used by players.");
+                sender.sendMessage(Messages.getPlayersOnlyMessage());
             }
         }
         return true;
