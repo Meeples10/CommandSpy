@@ -31,7 +31,12 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public static boolean loadConfig() {
-        Bukkit.getServer().getPluginManager().getPlugin(NAME).saveDefaultConfig();
+        if(!df.exists()) {
+            df.mkdirs();
+        }
+        if(!cfg.exists()) {
+            Bukkit.getServer().getPluginManager().getPlugin(NAME).saveDefaultConfig();
+        }
 
         FileConfiguration config = YamlConfiguration.loadConfiguration(cfg);
         chatPrefix = ChatColor.translateAlternateColorCodes('&', config.getString("chat-prefix"));
