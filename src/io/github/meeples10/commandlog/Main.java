@@ -46,22 +46,22 @@ public final class Main extends JavaPlugin implements Listener {
 
         FileConfiguration config = YamlConfiguration.loadConfiguration(cfg);
 
-        chatPrefix = ChatColor.translateAlternateColorCodes('&', config.getString("chatprefix"));
-        chatFormat = ChatColor.translateAlternateColorCodes('&', config.getString("chatformat"));
+        chatPrefix = ChatColor.translateAlternateColorCodes('&', config.getString("chat-prefix"));
+        chatFormat = ChatColor.translateAlternateColorCodes('&', config.getString("chat-format"));
 
-        allowDisable = config.getBoolean("allowdisable");
+        allowDisable = config.getBoolean("allow-disabling-notices");
 
         int pIndex = -1;
         int cIndex = -1;
         if(chatFormat.length() > 0) {
-            pIndex = chatFormat.indexOf("{Player}");
-            cIndex = chatFormat.indexOf("{Command}");
+            pIndex = chatFormat.indexOf("[{Player}]");
+            cIndex = chatFormat.indexOf("[{Command}]");
         }
         if((pIndex < 0) || (cIndex < 0)) {
-            log.warning("chatformat string must at least contain {Player} and {Command}");
+            log.warning("chat-format string must contain both [{Player}] and [{Command}]");
             log.warning("Using default chatformat string now");
 
-            chatFormat = config.getDefaults().getString("chatformat");
+            chatFormat = config.getDefaults().getString("chat-format");
         }
     }
 
