@@ -11,6 +11,9 @@ commands:
     description: Allows players to view commands used by others.
     usage: Type '/cl help' to show the help information.
 permissions:
-    commandlog.notice:
-        description: Allows a user to be notified when a command is executed
-        default: op
+  commandlog.notice:
+    description: Allows players to be notified when a command is executed
+    default: op
+  commandlog.reload:
+    description: Allows players to reload the plugin
+    default: op

@@ -30,7 +30,7 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("commandlog").setExecutor(new CommandCL("/cl help"));
     }
 
-    public static void loadConfig() {
+    public static boolean loadConfig() {
         Bukkit.getServer().getPluginManager().getPlugin(NAME).saveDefaultConfig();
 
         FileConfiguration config = YamlConfiguration.loadConfiguration(cfg);
@@ -51,6 +51,7 @@ public final class Main extends JavaPlugin implements Listener {
                     "chat-format string must contain both [{Player}] and [{Command}] --- Using default chat-format string instead");
             chatFormat = config.getDefaults().getString("chat-format");
         }
+        return true;
     }
 
     @EventHandler
