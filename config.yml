@@ -8,8 +8,5 @@ chatprefix: '&a[&eCL&a] '
 # Players that have the 'commandlog.notice' permission can see these messages
 chatformat: '&fPlayer {Player} &fused command: &e{Command}'
 
-# Enable/disable logging to file
-filelog: true
-
 # Enable/disable toggling command logging on or off
 allowdisable: false

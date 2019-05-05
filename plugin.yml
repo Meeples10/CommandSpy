@@ -1,24 +1,16 @@
 name: CommandLog
-version: 1.1.6
+version: 2.0.0
 main: io.github.meeples10.commandlog.Main
 author: Meeples10
 description: CommandLog
+depend: [MeepCore]
 api-version: 1.14
-
 commands:
   commandlog:
     aliases: [cl]
-    description: A simple command logger.
+    description: Allows players to view the commands used by others.
     usage: Type '/cl help' to show the help information.
-    
 permissions:
-    commandlog.admin:
-        description: Gives access to all CommandLog commands
-        children:
-            commandlog.history: true
-            commandlog.notice: true
-        default: admin
-    commandlog.history:
-        description: Allows a user to see the history of commands that were executed
     commandlog.notice:
         description: Allows a user to be notified when a command is executed
+        default: op
