@@ -1,14 +1,10 @@
 package io.github.meeples10.commandlog;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -31,8 +27,6 @@ public final class Main extends JavaPlugin implements Listener {
     private static String chatFormat = "";
     private static String chatPrefix = "";
     private static boolean enableNotifications = true;
-    private static boolean enableFileLog = true;
-    private static List<HistoryItem> commandHistory;
     private static boolean allowDisable;
     private static File df, cfg, data;
     private static Logger log;
@@ -46,7 +40,6 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         loadConfig();
         getCommand("commandlog").setExecutor(new CommandCL());
-        commandHistory = new ArrayList<HistoryItem>();
     }
 
     public static void loadConfig() {
@@ -71,8 +64,6 @@ public final class Main extends JavaPlugin implements Listener {
 
             chatFormat = config.getDefaults().getString("chatformat");
         }
-
-        enableFileLog = config.getBoolean("filelog");
     }
 
     @EventHandler
@@ -110,14 +101,6 @@ public final class Main extends JavaPlugin implements Listener {
                 logCommandToOnlinePlayer(e.getMessage(), p, e.getPlayer());
             }
         }
-
-        Player player = e.getPlayer();
-        HistoryItem hi = new HistoryItem(s, player.getDisplayName(), new Date(), player.getLocation());
-        commandHistory.add(hi);
-
-        if(enableFileLog) {
-            logCommandToFile(hi);
-        }
     }
 
     private void logCommandToOnlinePlayer(String s, Player p, Player sender) {
@@ -126,35 +109,6 @@ public final class Main extends JavaPlugin implements Listener {
                 p.sendMessage(
                         chatPrefix + chatFormat.replace("{Player}", sender.getDisplayName()).replace("{Command}", s));
             }
-        }
-    }
-
-    private void logCommandToFile(HistoryItem hi) {
-        File dataFolder = getDataFolder();
-        if(!dataFolder.exists()) {
-            dataFolder.mkdir();
-        }
-
-        String fileName = "commandlog_" + formatDate("yMMdd", new Date()) + ".txt";
-        File saveTo = new File(getDataFolder(), fileName);
-        if(!saveTo.exists()) {
-            try {
-                saveTo.createNewFile();
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            FileWriter fw = new FileWriter(saveTo, true);
-            PrintWriter pw = new PrintWriter(fw);
-
-            pw.println("[" + formatDate("yyyy/MM/dd HH:mm:ss", hi.getDate()) + "] " + hi.getSender() + " executed "
-                    + hi.getCommand() + " at " + getLocationString(hi.getLocation()));
-            pw.flush();
-            pw.close();
-        } catch(IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -184,14 +138,6 @@ public final class Main extends JavaPlugin implements Listener {
 
     public static boolean allowNotifications() {
         return enableNotifications;
-    }
-
-    public static boolean allowFileLog() {
-        return enableFileLog;
-    }
-
-    public static List<HistoryItem> getCommandHistory() {
-        return commandHistory;
     }
 
     public static boolean toggleHidden(Player p) {

@@ -30,8 +30,6 @@ public class CommandCL implements CommandExecutor {
                 return disableCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("e")) {
                 return enableCommand(sender, args);
-            } else if(args[0].equalsIgnoreCase("history") || args[0].equalsIgnoreCase("h")) {
-                return historyCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
                 return helpCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("hide")) {
@@ -138,61 +136,6 @@ public class CommandCL implements CommandExecutor {
                     }
                 }
                 sender.sendMessage(Main.getChatPrefix() + ChatColor.RESET + " Notifications are now disabled");
-            }
-        }
-        return true;
-    }
-
-    private boolean historyCommand(CommandSender sender, String[] args) {
-        if(sender instanceof Player) {
-            Player player = (Player) sender;
-
-            if(player.hasPermission("commandlog.history")) {
-                int numHistory = 10;
-                if(args.length == 2) {
-                    try {
-                        numHistory = Integer.parseInt(args[1]);
-                    } catch(NumberFormatException e) {
-                        sender.sendMessage(ChatColor.RED + "Please type a number, for example: " + ChatColor.DARK_RED
-                                + "/cl history 10");
-                        return true;
-                    }
-                }
-                if(numHistory > Main.getCommandHistory().size()) {
-                    numHistory = Main.getCommandHistory().size();
-                }
-
-                sender.sendMessage(Main.getChatPrefix() + ChatColor.GOLD + "Here are the last " + ChatColor.RED
-                        + numHistory + ChatColor.GOLD + " commands:");
-                for(int iHistory = numHistory - 1; iHistory >= 0; iHistory--) {
-                    HistoryItem hi = (HistoryItem) Main.getCommandHistory().get(iHistory);
-                    sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender()
-                            + " executed " + hi.getCommand());
-                }
-            } else {
-                sender.sendMessage(ChatColor.RED + "Insufficient permissions");
-            }
-        } else {
-            int numHistory = 10;
-            if(args.length == 2) {
-                try {
-                    numHistory = Integer.parseInt(args[1]);
-                } catch(NumberFormatException e) {
-                    sender.sendMessage(ChatColor.RED + "Please type a number, for example: " + ChatColor.DARK_RED
-                            + "/cl history 10");
-                    return true;
-                }
-            }
-            if(numHistory > Main.getCommandHistory().size()) {
-                numHistory = Main.getCommandHistory().size();
-            }
-
-            sender.sendMessage(Main.getChatPrefix() + "§6Here are the last " + ChatColor.RED + numHistory
-                    + ChatColor.GOLD + " commands:");
-            for(int iHistory = numHistory - 1; iHistory >= 0; iHistory--) {
-                HistoryItem hi = (HistoryItem) Main.getCommandHistory().get(iHistory);
-                sender.sendMessage("[" + Main.formatDate("y/M/d HH:mm", hi.getDate()) + "] " + hi.getSender()
-                        + " executed " + hi.getCommand());
             }
         }
         return true;
