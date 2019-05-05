@@ -18,15 +18,19 @@ public class CommandCL extends MeepCommand {
     @Override
     public boolean run(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length > 0) {
-            if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
+            switch(args[0].toLowerCase()) {
+            case "reload":
                 return reloadCommand(sender, args);
-            } else if(args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("d")) {
-                return disableCommand(sender, args);
-            } else if(args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("e")) {
+            case "enable":
+            case "e":
                 return enableCommand(sender, args);
-            } else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
+            case "disable":
+            case "d":
+                return disableCommand(sender, args);
+            case "help":
+            case "?":
                 return helpCommand(sender, args);
-            } else {
+            default:
                 return false;
             }
         } else {
@@ -80,11 +84,10 @@ public class CommandCL extends MeepCommand {
     }
 
     private boolean helpCommand(CommandSender sender, String[] args) {
-        sender.sendMessage(
-                Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME + " Help $t"
-                        + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload | rl$t: Reload the plugin$hl\n"
-                        + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
-                        + "/cl enable | e$t: Enable command notifications for everyone"));
+        sender.sendMessage(Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME
+                + " Help $t" + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload$t: Reload the plugin$hl\n"
+                + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
+                + "/cl enable | e$t: Enable command notifications for everyone"));
         return true;
     }
 }
