@@ -29,8 +29,6 @@ public class CommandCL extends MeepCommand {
                 return enableCommand(sender, args);
             } else if(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")) {
                 return helpCommand(sender, args);
-            } else if(args[0].equalsIgnoreCase("hide")) {
-                return hideCommand(sender, args);
             } else {
                 return false;
             }
@@ -147,19 +145,6 @@ public class CommandCL extends MeepCommand {
                         + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload | rl$t: Reload the plugin$hl\n"
                         + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
                         + "/cl enable | e$t: Enable command notifications for everyone"));
-        return true;
-    }
-
-    private boolean hideCommand(CommandSender sender, String[] args) {
-        if(sender.hasPermission("commandlog.notice")) {
-            if(sender instanceof Player) {
-                sender.sendMessage(
-                        Main.getChatPrefix() + "You will " + (Main.toggleHidden((Player) sender) ? "no longer" : "now")
-                                + " receive command notifications.");
-            } else {
-                sender.sendMessage(Messages.getPlayersOnlyMessage());
-            }
-        }
         return true;
     }
 }
