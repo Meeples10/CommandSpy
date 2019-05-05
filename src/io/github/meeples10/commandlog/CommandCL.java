@@ -41,20 +41,11 @@ public class CommandCL extends MeepCommand {
     }
 
     private boolean reloadCommand(CommandSender sender, String[] args) {
-        if(sender instanceof Player) {
-            Player player = (Player) sender;
-
-            if(player.hasPermission("commandlog.admin")) {
-                Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
-                Main.loadConfig();
-                sender.sendMessage(Main.getChatPrefix() + "Config reloaded");
-            } else {
-                sender.sendMessage(Messages.noPermissionMessage());
-            }
+        if(sender.hasPermission("commandlog.reload")) {
+            sender.sendMessage(Messages.reloadAttempt(Main.getChatFormat().trim()));
+            sender.sendMessage(Messages.reloadMessage(Main.getChatFormat().trim(), Main.loadConfig()));
         } else {
-            Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).reloadConfig();
-            Main.loadConfig();
-            Bukkit.getPluginManager().getPlugin(Main.NAME).getLogger().info("Config reloaded");
+            sender.sendMessage(Messages.noPermissionMessage());
         }
         return true;
     }
