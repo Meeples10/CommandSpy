@@ -228,7 +228,7 @@ public class CommandCL implements CommandExecutor {
         if(sender.hasPermission("commandlog.notice")) {
             if(sender instanceof Player) {
                 sender.sendMessage(Main.getChatPrefix() + " You will "
-                        + (Main.toggleHidden((Player) sender) ? "no longer" : "now") + "receive command notifications");
+                        + (Main.toggleHidden((Player) sender) ? "no longer" : "now") + " receive command notifications");
             } else {
                 sender.sendMessage("This command can only be used by players.");
             }

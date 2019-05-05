@@ -1,15 +1,16 @@
 name: CommandLog
-version: 1.1.5
+version: 1.1.6
 main: io.github.meeples10.commandlog.Main
 author: Meeples10
 description: CommandLog
+api-version: 1.14
 
 commands:
   commandlog:
     aliases: [cl]
     description: A simple command logger.
     usage: Type '/cl help' to show the help information.
-
+    
 permissions:
     commandlog.admin:
         description: Gives access to all CommandLog commands
