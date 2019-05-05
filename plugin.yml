@@ -2,13 +2,13 @@ name: CommandLog
 version: 2.0.0
 main: io.github.meeples10.commandlog.Main
 author: Meeples10
-description: CommandLog
+description: Allows players to view the commands used by others.
 depend: [MeepCore]
 api-version: 1.14
 commands:
   commandlog:
     aliases: [cl]
-    description: Allows players to view the commands used by others.
+    description: Allows players to view commands used by others.
     usage: Type '/cl help' to show the help information.
 permissions:
     commandlog.notice:
