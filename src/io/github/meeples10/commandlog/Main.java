@@ -34,19 +34,12 @@ public final class Main extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().getPlugin(NAME).saveDefaultConfig();
 
         FileConfiguration config = YamlConfiguration.loadConfiguration(cfg);
-
         chatPrefix = ChatColor.translateAlternateColorCodes('&', config.getString("chat-prefix"));
         chatFormat = ChatColor.translateAlternateColorCodes('&', config.getString("chat-format"));
-
         allowDisable = config.getBoolean("allow-disabling-notices");
 
-        int pIndex = -1;
-        int cIndex = -1;
-        if(chatFormat.length() > 0) {
-            pIndex = chatFormat.indexOf("[{Player}]");
-            cIndex = chatFormat.indexOf("[{Command}]");
-        }
-        if((pIndex < 0) || (cIndex < 0)) {
+        if(chatFormat.length() == 0 || (chatFormat.indexOf("[{Player}]") == -1)
+                || (chatFormat.indexOf("[{Command}]") == -1)) {
             Bukkit.getPluginManager().getPlugin(NAME).getLogger().warning(
                     "chat-format string must contain both [{Player}] and [{Command}] --- Using default chat-format string instead");
             chatFormat = config.getDefaults().getString("chat-format");
