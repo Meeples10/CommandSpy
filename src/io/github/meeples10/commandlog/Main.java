@@ -18,7 +18,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     private static String chatFormat;
     private static String chatPrefix;
-    private static boolean enableNotifications;
+    private static boolean enableNotifications = true;
     private static boolean allowDisable;
     private static File df, cfg;
 
