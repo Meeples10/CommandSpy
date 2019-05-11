@@ -1,5 +1,5 @@
 name: CommandLog
-version: 2.0.0
+version: 2.0.1
 main: io.github.meeples10.commandlog.Main
 author: Meeples10
 description: Allows players to view the commands used by others.
