@@ -47,7 +47,8 @@ public final class Main extends JavaPlugin implements Listener {
                 || (chatFormat.indexOf("[{Command}]") == -1)) {
             Bukkit.getPluginManager().getPlugin(NAME).getLogger().warning(
                     "chat-format string must contain both [{Player}] and [{Command}] --- Using default chat-format string instead");
-            chatFormat = config.getDefaults().getString("chat-format");
+            chatFormat = ChatColor.translateAlternateColorCodes('&',
+                    "&rPlayer [{Player}]&r used command: &e[{Command}]");
         }
         return true;
     }

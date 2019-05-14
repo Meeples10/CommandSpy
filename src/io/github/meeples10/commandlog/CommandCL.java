@@ -41,7 +41,7 @@ public class CommandCL extends MeepCommand {
         }
     }
 
-    private boolean reloadCommand(CommandSender sender) {
+    private static boolean reloadCommand(CommandSender sender) {
         if(sender.hasPermission("commandlog.reload")) {
             sender.sendMessage(Messages.reloadAttempt(Main.NAME));
             sender.sendMessage(Messages.reloadMessage(Main.NAME, Main.loadConfig()));
@@ -51,7 +51,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean disableCommand(CommandSender sender) {
+    private static boolean disableCommand(CommandSender sender) {
         if(Main.allowDisable()) {
             Main.setNotifications(false);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -67,7 +67,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean enableCommand(CommandSender sender) {
+    private static boolean enableCommand(CommandSender sender) {
         if(Main.allowDisable()) {
             Main.setNotifications(true);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -83,7 +83,7 @@ public class CommandCL extends MeepCommand {
         return true;
     }
 
-    private boolean helpCommand(CommandSender sender) {
+    private static boolean helpCommand(CommandSender sender) {
         sender.sendMessage(Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME
                 + " Help $t" + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload$t: Reload the plugin$hl\n"
                 + "/cl disable | d$t: Disable command notifications for everyone$hl\n"

@@ -9,7 +9,7 @@ commands:
   commandlog:
     aliases: [cl]
     description: Allows players to view commands used by others.
-    usage: Type '/cl help' to show the help information.
+    usage: Use '/cl help' to show help information.
 permissions:
   commandlog.notice:
     description: Allows players to be notified when a command is executed
