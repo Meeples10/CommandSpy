@@ -66,8 +66,8 @@ public final class Main extends JavaPlugin implements Listener {
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p.hasPermission("commandlog.notice")) {
                 if(p != e.getPlayer()) {
-                    p.sendMessage(chatPrefix + chatFormat.replace("{Player}", e.getPlayer().getDisplayName())
-                            .replace("{Command}", e.getMessage()));
+                    p.sendMessage(chatPrefix + chatFormat.replace("[{Player}]", e.getPlayer().getDisplayName())
+                            .replace("[{Command}]", e.getMessage()));
                 }
             }
         }
