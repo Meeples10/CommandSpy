@@ -1,13 +1,13 @@
 package io.github.meeples10.commandlog;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.meeples10.meepcore.MeepCommand;
 import io.github.meeples10.meepcore.Messages;
-import net.md_5.bungee.api.ChatColor;
 
 public class CommandCL extends MeepCommand {
 
