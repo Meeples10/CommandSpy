@@ -3,6 +3,7 @@ package io.github.meeples10.commandlog;
 import java.io.File;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -10,8 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import net.md_5.bungee.api.ChatColor;
 
 public final class Main extends JavaPlugin implements Listener {
     public static final String NAME = "CommandLog";
