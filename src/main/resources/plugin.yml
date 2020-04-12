@@ -1,8 +1,8 @@
 name: CommandLog
-version: 2.0.2
 main: io.github.meeples10.commandlog.Main
+version: %PROJECT_VERSION%
 author: Meeples10
-description: Allows players to view the commands used by others.
+description: %PROJECT_DESCRIPTION%
 depend: [MeepCore]
 api-version: 1.15
 commands:
