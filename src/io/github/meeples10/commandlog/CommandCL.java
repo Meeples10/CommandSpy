@@ -6,8 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.meeples10.meepcore.MeepCommand;
-import io.github.meeples10.meepcore.Messages;
+import net.ddns.meepnet.meepcore.MeepCommand;
+import net.ddns.meepnet.meepcore.Messages;
 
 public class CommandCL extends MeepCommand {
 
@@ -34,7 +34,7 @@ public class CommandCL extends MeepCommand {
                 return false;
             }
         } else {
-            sender.sendMessage(Messages.format("$hlCommandLog $tversion $hl"
+            sender.sendMessage(Messages.format("$hl" + Main.NAME + " $tversion $hl"
                     + Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).getDescription().getVersion()
                     + "\n$tAuthor: $hlMeeples10\n$tUse $hl/cl help $tfor more information."));
             return true;
