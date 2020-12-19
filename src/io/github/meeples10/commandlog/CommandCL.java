@@ -61,14 +61,14 @@ public class CommandCL extends MeepCommand {
                 if(p.hasPermission("commandlog.notice")) {
                     p.sendMessage(Messages
                             .format(Messages.translate(p, "commandlog.prefix")
-                                    + Messages.translate(p, "commandlog.command.cl.disabled.success"))
+                                    + Messages.translate(p, "command.commandlog.cl.disabled.success"))
                             .replace("{{PLAYER}}",
                                     sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()));
                 }
             }
         } else {
             sender.sendMessage(Messages.format(Messages.translate(sender, "commandlog.prefix")
-                    + Messages.translate(sender, "commandlog.command.cl.disabled.failure")));
+                    + Messages.translate(sender, "command.commandlog.cl.disabled.failure")));
         }
         return true;
     }
@@ -80,14 +80,14 @@ public class CommandCL extends MeepCommand {
                 if(p.hasPermission("commandlog.notice")) {
                     p.sendMessage(Messages
                             .format(Messages.translate(p, "commandlog.prefix")
-                                    + Messages.translate(p, "commandlog.command.cl.enabled.success"))
+                                    + Messages.translate(p, "command.commandlog.cl.enabled.success"))
                             .replace("{{PLAYER}}",
                                     sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()));
                 }
             }
         } else {
             sender.sendMessage(Messages.format(Messages.translate(sender, "commandlog.prefix")
-                    + Messages.translate(sender, "commandlog.command.cl.enabled.failure")));
+                    + Messages.translate(sender, "command.commandlog.cl.enabled.failure")));
         }
         return true;
     }
