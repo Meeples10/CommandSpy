@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.ddns.meepnet.meepcore.LocalizationUtils;
 import net.ddns.meepnet.meepcore.Messages;
 
 public final class Main extends JavaPlugin implements Listener {
@@ -25,6 +26,11 @@ public final class Main extends JavaPlugin implements Listener {
         cfg = new File(df, "config.yml");
         getServer().getPluginManager().registerEvents(this, this);
         loadConfig();
+        try {
+            LocalizationUtils.loadMessages(NAME);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         getCommand("commandlog").setExecutor(new CommandCL("command.commandlog.cl.usage"));
     }
 
