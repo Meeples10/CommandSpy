@@ -34,60 +34,70 @@ public class CommandCL extends MeepCommand {
                 return false;
             }
         } else {
-            sender.sendMessage(Messages.format("$hl" + Main.NAME + " $tversion $hl"
-                    + Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).getDescription().getVersion()
-                    + "\n$tAuthor: $hlMeeples10\n$tUse $hl/cl help $tfor more information."));
+            sender.sendMessage(Messages.format("$hl" + Main.NAME + " $t"
+                    + Messages.translate(sender, "command.commandlog.cl.default.version") + " $hl"
+                    + Bukkit.getServer().getPluginManager().getPlugin(Main.NAME).getDescription().getVersion() + "\n$t"
+                    + Messages.translate(sender, "command.commandlog.cl.default.author") + ": $hlMeeples10\n$t"
+                    + String.format(Messages.translate(sender, "command.commandlog.cl.default.help"),
+                            Messages.translate(sender, "command.commandlog.cl.usage"))));
             return true;
         }
     }
 
     private static boolean reloadCommand(CommandSender sender) {
         if(sender.hasPermission("commandlog.reload")) {
-            sender.sendMessage(Messages.reloadAttempt(Main.NAME));
-            sender.sendMessage(Messages.reloadMessage(Main.NAME, Main.loadConfig()));
+            sender.sendMessage(Messages.reloadAttempt(sender, Main.NAME));
+            sender.sendMessage(Messages.reloadMessage(sender, Main.NAME, Main.loadConfig()));
         } else {
-            sender.sendMessage(Messages.noPermissionMessage());
+            sender.sendMessage(Messages.noPermissionMessage(sender));
         }
         return true;
     }
 
     private static boolean disableCommand(CommandSender sender) {
-        if(Main.allowDisable()) {
+        if(Main.allowDisabling()) {
             Main.setNotifications(false);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                 if(p.hasPermission("commandlog.notice")) {
-                    p.sendMessage(Main.getChatPrefix()
-                            + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName())
-                            + ChatColor.RESET + " has disabled notifications.");
+                    p.sendMessage(Messages
+                            .format(Messages.translate(p, "commandlog.prefix")
+                                    + Messages.translate(p, "commandlog.command.cl.disabled.success"))
+                            .replace("{{PLAYER}}",
+                                    sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()));
                 }
             }
         } else {
-            sender.sendMessage(Main.getChatPrefix() + "Notifications cannot be disabled.");
+            sender.sendMessage(Messages.format(Messages.translate(sender, "commandlog.prefix")
+                    + Messages.translate(sender, "commandlog.command.cl.disabled.failure")));
         }
         return true;
     }
 
     private static boolean enableCommand(CommandSender sender) {
-        if(Main.allowDisable()) {
+        if(Main.allowDisabling()) {
             Main.setNotifications(true);
             for(Player p : Bukkit.getServer().getOnlinePlayers()) {
                 if(p.hasPermission("commandlog.notice")) {
-                    p.sendMessage(Main.getChatPrefix()
-                            + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName())
-                            + ChatColor.RESET + " has enabled notifications.");
+                    p.sendMessage(Messages
+                            .format(Messages.translate(p, "commandlog.prefix")
+                                    + Messages.translate(p, "commandlog.command.cl.enabled.success"))
+                            .replace("{{PLAYER}}",
+                                    sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()));
                 }
             }
         } else {
-            sender.sendMessage(Main.getChatPrefix() + "Notifications are already enabled.");
+            sender.sendMessage(Messages.format(Messages.translate(sender, "commandlog.prefix")
+                    + Messages.translate(sender, "commandlog.command.cl.enabled.failure")));
         }
         return true;
     }
 
     private static boolean helpCommand(CommandSender sender) {
         sender.sendMessage(Messages.format("$t" + ChatColor.STRIKETHROUGH + "---------------$hl " + Main.NAME
-                + " Help $t" + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload$t: Reload the plugin$hl\n"
-                + "/cl disable | d$t: Disable command notifications for everyone$hl\n"
-                + "/cl enable | e$t: Enable command notifications for everyone"));
+                + " Help $t" + ChatColor.STRIKETHROUGH + "---------------$hl\n" + "/cl reload$t: "
+                + Messages.translate(sender, "command.meepcore.help.reload") + "$hl\n" + "/cl disable | d$t: "
+                + Messages.translate(sender, "command.commandlog.cl.help.disable") + "$hl\n" + "/cl enable | e$t: "
+                + Messages.translate(sender, "command.commandlog.cl.help.enable")));
         return true;
     }
 }
