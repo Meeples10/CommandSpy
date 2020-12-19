@@ -4,7 +4,7 @@ version: %PROJECT_VERSION%
 author: Meeples10
 description: %PROJECT_DESCRIPTION%
 depend: [MeepCore]
-api-version: 1.15
+api-version: 1.16
 commands:
   commandlog:
     aliases: [cl]

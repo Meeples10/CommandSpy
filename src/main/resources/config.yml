@@ -1,12 +1,2 @@
-# Chat prefix, shown in front of plugin messages and notifications
-chat-prefix: '&a[&eCL&a]&r '
-
-# Chat format must contain the following placeholders:
-# {Player}  the player executing the command
-# {Command} the command itself
-#
-# Players that have the 'commandlog.notice' permission can see these messages
-chat-format: '&rPlayer [{Player}]&r used command: &e[{Command}]'
-
 # Enable/disable the ability to toggle command notices on or off
 allow-disabling-notices: false
