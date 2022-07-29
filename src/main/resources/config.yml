@@ -1,2 +1,2 @@
-# Enable/disable the ability to toggle command notices on or off
+# Enable/disable the ability to toggle command spying on or off
 allow-disabling-notices: false
