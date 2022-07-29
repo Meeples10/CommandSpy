@@ -1,19 +1,19 @@
-name: CommandLog
-main: io.github.meeples10.commandlog.Main
+name: CommandSpy
+main: io.github.meeples10.commandspy.Main
 version: %PROJECT_VERSION%
 author: Meeples10
 description: %PROJECT_DESCRIPTION%
 depend: [MeepCore]
-api-version: 1.16
+api-version: 1.19
 commands:
-  commandlog:
-    aliases: [cl]
+  commandspy:
+    aliases: [cspy]
     description: Allows players to view commands used by others.
-    usage: Use '/cl help' to show help information.
+    usage: Use '/cspy help' to show help information.
 permissions:
-  commandlog.notice:
+  commandspy.notice:
     description: Allows players to be notified when a command is executed
     default: op
-  commandlog.reload:
+  commandspy.reload:
     description: Allows players to reload the plugin
     default: op

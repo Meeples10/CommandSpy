@@ -1,4 +1,4 @@
-package io.github.meeples10.commandlog;
+package io.github.meeples10.commandspy;
 
 import java.io.File;
 
@@ -15,7 +15,7 @@ import io.github.meeples10.meepcore.I18n;
 import io.github.meeples10.meepcore.Messages;
 
 public final class Main extends JavaPlugin implements Listener {
-    public static final String NAME = "CommandLog";
+    public static final String NAME = "CommandSpy";
 
     private static boolean enableNotifications = true;
     private static boolean allowDisabling;
@@ -31,7 +31,7 @@ public final class Main extends JavaPlugin implements Listener {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        getCommand("commandlog").setExecutor(new CommandCL("command.commandlog.cl.usage"));
+        getCommand("commandspy").setExecutor(new CommandCSpy("command.commandspy.cspy.usage"));
     }
 
     public static boolean loadConfig() {
@@ -58,11 +58,11 @@ public final class Main extends JavaPlugin implements Listener {
         }
 
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-            if(p.hasPermission("commandlog.notice")) {
+            if(p.hasPermission("commandspy.notice")) {
                 if(p != e.getPlayer()) {
                     p.sendMessage(Messages
-                            .format(Messages.translate(p, "commandlog.prefix")
-                                    + Messages.translate(p, "commandlog.notification"))
+                            .format(Messages.translate(p, "commandspy.prefix")
+                                    + Messages.translate(p, "commandspy.notification"))
                             .replace("{{PLAYER}}", e.getPlayer().getDisplayName())
                             .replace("{{COMMAND}}", e.getMessage()));
                 }
