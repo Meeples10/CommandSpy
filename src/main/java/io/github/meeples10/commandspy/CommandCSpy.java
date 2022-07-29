@@ -17,6 +17,10 @@ public class CommandCSpy extends MeepCommand {
 
     @Override
     public boolean run(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!sender.hasPermission("commandspy.use")) {
+            sender.sendMessage(Messages.noPermissionMessage(sender));
+            return false;
+        }
         if(args.length > 0) {
             switch(args[0].toLowerCase()) {
             case "reload":

@@ -10,7 +10,11 @@ commands:
     aliases: [cspy]
     description: Allows players to view commands used by others.
     usage: Use '/cspy help' to show help information.
+    permission: commandspy.use
 permissions:
+  commandspy.use:
+    description: Allows players to use the /cspy command
+    default: op
   commandspy.notice:
     description: Allows players to be notified when a command is executed
     default: op
