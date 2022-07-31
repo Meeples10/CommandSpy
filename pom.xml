@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.meeples10</groupId>
 	<artifactId>commandspy</artifactId>
-	<version>2.0.4</version>
+	<version>2.0.5</version>
 	<name>commandspy</name>
 	<description>Allows server moderators to view the commands used by other players.</description>
 	<build>
@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>io.github.meeples10</groupId>
 			<artifactId>meepcore</artifactId>
-			<version>1.4.1</version>
+			<version>1.4.2</version>
 		</dependency>
 	</dependencies>
 	<properties>

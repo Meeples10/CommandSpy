@@ -61,8 +61,8 @@ public final class Main extends JavaPlugin implements Listener {
             if(p.hasPermission("commandspy.notice")) {
                 if(p != e.getPlayer()) {
                     p.sendMessage(Messages
-                            .format(Messages.translate(p, "commandspy.prefix")
-                                    + Messages.translate(p, "commandspy.notification"))
+                            .format(Messages.translate(I18n.getLocale(p), "commandspy.prefix")
+                                    + Messages.translate(I18n.getLocale(p), "commandspy.notification"))
                             .replace("{{PLAYER}}", e.getPlayer().getDisplayName())
                             .replace("{{COMMAND}}", e.getMessage()));
                 }
